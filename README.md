@@ -122,42 +122,104 @@ Having count(*) >1
 At this point I could say I was good to go for Exploratory Data Analysis.
 
 # Exploratory Data Analysis of Laptop_price and Specifications
-The price used in the dataset is in Euros. I had to add a new column called 'Price_in_Naira'. This will enable customers from Nigeria know the amount of a laptop at a glance without trying to convert from Euros to Naira.
+1. The price used in the dataset is in Euros. I had to add a new column called 'Price_in_Naira'. This will enable customers from Nigeria know the cost of a laptop at a glance without trying to convert from Euros to Naira.
 
-ALTER TABLE [dbo].[Laptop_price]
-ADD Price_in_Naira FLOAT
+2. ALTER TABLE [dbo].[Laptop_price]
+   ADD Price_in_Naira FLOAT
+   
 ![](Table9.png)
 
-Converting Price_in_euros to Price_in_Naira using exchange rate 910
+3. Converting Price_in_euros to Price_in_Naira using exchange rate 910
 
-update [dbo].[Laptop_price]
-set Price_in_Naira = CAST(Price_in_euros as FLOAT) * 910
+   update [dbo].[Laptop_price]
+   set Price_in_Naira = CAST(Price_in_euros as FLOAT) * 910
+   
 ![](Table9a.png)
 
 
+4. To determine the types of Company and give their totalnumber
 
-To determine the types of Company and give their totalnumber
-
-select distinct Company, count(Company) as Totalnumber
-from [dbo].[Laptop_price]
-group by Company
+   select distinct Company, count(Company) as Totalnumber
+   from [dbo].[Laptop_price]
+   group by Company
+   
 ![](EDA1.png)
 
-To determine which Company has more inches
+5. To order the Company according to the Inches
 
-select Company, Inches 
-from [dbo].[Laptop_price]
-order by Inches desc
+   select Company, Inches 
+   from [dbo].[Laptop_price]
+   order by Inches desc
+   
 ![](EDA2.png)
 
-To determine the Company type that cost the most with some specifications
+6. To determine the Company cost with some specifications
 
-select Company,Price_in_Naira, Ram, Memory, Inches, Weight, OpSys, TypeName, Cpu
-from [dbo].[Laptop_price]
-order by Price_in_Naira desc
+   select Company,Price_in_Naira, Ram, Memory, Inches, Weight, OpSys, TypeName, Cpu
+   from [dbo].[Laptop_price]
+   order by Price_in_Naira desc
+   
 ![](EDA3.png)
 ![](EDA3a.png)
 
+7. Getting the Minimum cost of each Company
+
+  select Company, min(Price_in_Naira) as Less_Expensive
+  from [dbo].[Laptop_price]
+  group by Company
+  order by min(Price_in_Naira) desc
+
+![](EDA7a.png)
+
+8. Getting the Maximum cost of each Company
+
+   select Company, max(Price_in_Naira) as Expensive
+   from [dbo].[Laptop_price]
+   group by Company
+   order by max(Price_in_Naira) desc
+
+![](EDA7.png)
 
 
+9. To determine product and TypeName under Apple
+    
+   select distinct Product, TypeName
+   from [dbo].[laptop_price (1)]
+   where Company = 'Apple'
 
+![](EDA4.png)
+
+10. To determine Ram and how many the are in Apple
+    
+    select Ram, Count(Ram) as CountRam
+    from[dbo].[laptop_price (1)]
+    where Company = 'Apple'
+    group by Ram
+
+![](EDA5.png)
+
+11. To set a certian criteria thereby classifying Price_in_Naira
+
+    select Ram,Product, Price_in_Naira,
+case 
+			when Price_in_Naira > 1000000 then 'Costly'
+			else 'Cheap'
+end as Classification
+
+    from [dbo].[laptop_price (1)]
+    where Company = 'Apple'
+    order by Price_in_Naira desc
+
+![](EDA6.png)
+
+# Conclusion
+
+1. There are 19 Company with Lenovo having the highest count.
+2. The Company MSI has the highest Inche of 18.4
+3. Razer Copany has the most expensive laptop while Acer Company has the less_expensive laptop.
+4. Macbook Air Apple laptops are cheap compare to the other Apple products.
+
+# Recommendation
+
+For a customer to consider which purchase choice to make, he/she must consider some important specifications such 
+as: Inche, Ram, Cpu, Memory and Price. 
