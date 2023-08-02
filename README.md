@@ -3,16 +3,16 @@
  ![](image.jpg)
 ---
  # Introduction
- This is a SQL project on laptop price and specifications. The aim of the project is to show data analysis cleaning using SQL queries and exploratory data analysis to analyse and derive insights to answer important questions for customers satisfaction.
+ This is a SQL project on laptop_price dataset. The aim of the project is to show data analysis cleaning using SQL queries and exploratory data analysis to analyse and derive insights to answer important questions for customers satisfaction.
 
- # Problem Statement
- 1. Data Cleaning on laptop price and specification
- 2. Exploratory data analysis on laptop price and specification
+ # Problem Task
+ 1. Data Cleaning of laptop_price dataset
+ 2. Exploratory data analysis on Laptop_price dataset
 
 # Skills Demonstrated
 * Good understanding and Navigation on Microsoft SQL Server Management Studio
 * Uses of clauses
-* data cleaning
+* Data cleaning
 
   # Data Sourcing
   The dataset laptop price was gotten and downloaded from kaggle.
@@ -198,9 +198,9 @@ At this point I could say I was good to go for Exploratory Data Analysis.
 
 ![](EDA5.png)
 
-11. To set a certian criteria thereby classifying Price_in_Naira
+11. Specified a condition which classify Apple Price as Costly and Cheap
 
-    select Ram,Product, Price_in_Naira,
+    select Ram, Product, Price_in_Naira,
 case 
 			when Price_in_Naira > 1000000 then 'Costly'
 			else 'Cheap'
@@ -216,7 +216,7 @@ end as Classification
 
 1. There are 19 Company with Lenovo having the highest count.
 2. The Company MSI has the highest Inche of 18.4
-3. Razer Copany has the most expensive laptop while Acer Company has the less_expensive laptop.
+3. Razer Company has the most expensive laptop while Acer Company has the less_expensive laptop.
 4. Macbook Air Apple laptops are cheap compare to the other Apple products.
 
 # Recommendation
